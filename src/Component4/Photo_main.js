@@ -18,17 +18,16 @@ export default function Photo_main() {
 
   // FETCHING DATA //
   useEffect(() => {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-     setSpinner(true)
-      if (this.readyState == 4 && this.status == 200) {
-           setSpinner(false)
-          setImage(JSON.parse(this.response).hits)
-        
-      }
-    };
-    xhttp.open("GET", `https://pixabay.com/api/?key=26092190-30f01a5f9918acb80bcf2fd75&q=${searchVal}&per_page=${per_page}&page=${page}`, true);
-    xhttp.send();
+    setSpinner(true);
+    fetch(`https://pixabay.com/api/?key=26092190-30f01a5f9918acb80bcf2fd75&q=${searchVal}&per_page=${per_page}&page=${page}`)
+    .then(response=>response.json())
+    .then(data=>{
+      setImage(data.hits)
+      setSpinner(false);
+    }).catch((err)=>{
+      console.log(err);
+      setSpinner(false);
+    })
   }, [ page , per_page , searchVal]);
 
 
@@ -69,20 +68,20 @@ export default function Photo_main() {
         search={SearchInput}
         SearchBtn={SearchBtn}
       />
-      <h2 className="" style={{marginTop:"5rem"}}>All Image Gallery</h2>
+      <h2 className="" style={{marginTop:"6rem"}}>All Image Gallery</h2>
 
       <Photo_spinner spinner={spinner} />
-    {!spinner &&  <div className="container mt-3">
+    {!spinner &&  <div className="container image_cont mt-3">
         <div className="row">
         {image.length==0?<h4 className="mt-5">No image found☹️</h4>:""}
           {image.map((item, index) => (
-            <div key={index} className="col-md-4 ">
+            <div key={index} className="col-md-4">
               <div className="card my-2 mx-auto" >
                 <img
                   src={`${item.previewURL}`}
                   className="card-img-top img-fluid"
                   alt="No image"
-                  style={{ width: "350px", height: "200px" }}
+                  style={{ minHeight: "200px" }}
                 />
                 <div className="card-body">
                   <div className="card-text d-flex flex-row justify-content-between align-items-center">

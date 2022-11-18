@@ -11,13 +11,9 @@ function Photo_nav(props) {
     </button>
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-       
-     
           {/* backgrounds, fashion, nature, science, education, feelings, health,
            people, religion, places, animals, industry, computer, food, sports, 
            transportation, travel, buildings, business, music */}
-           
-        
           </ul>
       <form className="d-flex m-3 m-md-1">
         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" onChange={(e)=>props.search(e.target.value)}/>

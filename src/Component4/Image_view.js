@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 export default function Image_view(props) {
-  // {props.image.length===0?"No image found":''}
   return ReactDOM.createPortal(
     props.display &&
     <div >
